@@ -138,9 +138,12 @@ class data(object):
                 if self.is_save:
                     if not os.path.exists(self.processed_path):  os.makedirs(self.processed_path)
                     np.save((os.path.join(self.processed_path, image_idx.split('.')[0].strip())
-                             + '_data.npy'), labels)
+                             + '_data.npy'), labels)#lables=[[0,iou_val,xmin,ymin,xmax,ymax,21维标签],.....]
 
     def load_annotation(self, image_idx):
+        """
+        return {1:[cenrt_x,center_y,w,h]}
+        """
         iamge_annotion_path = os.path.join(self.annotation_path, image_idx.strip() + '.xml')
         tree = ET.parse(iamge_annotion_path)
         objs = tree.findall('object')
